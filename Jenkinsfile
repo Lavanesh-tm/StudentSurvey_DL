@@ -7,7 +7,6 @@ pipeline {
         REPO_NAME = "studentsurvey-repo"
         IMAGE_NAME = "studentsurvey"
         CLUSTER_NAME = "my-cluster2"
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-jenkins-s')
     }
 
     stages {
@@ -30,7 +29,7 @@ pipeline {
         stage('Authenticate with GCP') {
             steps {
                 echo '🔐 Authenticating with Google Cloud...'
-                withCredentials([file(credentialsId: 'gcp-jenkins-s', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh '''
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                         gcloud config set project $PROJECT_ID
@@ -52,7 +51,7 @@ pipeline {
         stage('Deploy to GKE') {
             steps {
                 echo '☸️ Deploying to GKE cluster...'
-                withCredentials([file(credentialsId: 'gcp-jenkins-s', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh '''
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                         gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION --project $PROJECT_ID
