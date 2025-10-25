@@ -7,21 +7,20 @@ pipeline {
         REPO_NAME = "studentsurvey-repo"
         IMAGE_NAME = "studentsurvey"
         CLUSTER_NAME = "my-cluster2"
-        GCP_CREDENTIALS = credentials('gcp-jenkins-s')
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-jenkins-s')
     }
 
     stages {
-
         stage('Checkout Source') {
             steps {
-                echo 'Cloning GitHub repository...'
+                echo '📦 Cloning GitHub repository...'
                 git branch: 'main', url: 'https://github.com/Lavanesh-tm/StudentSurvey_DL.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                echo 'Building Docker image...'
+                echo '🐳 Building Docker image...'
                 sh '''
                     docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:latest .
                 '''
@@ -30,7 +29,7 @@ pipeline {
 
         stage('Authenticate with GCP') {
             steps {
-                echo 'Authenticating with Google Cloud...'
+                echo '🔐 Authenticating with Google Cloud...'
                 withCredentials([file(credentialsId: 'gcp-jenkins-s', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh '''
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
@@ -43,7 +42,7 @@ pipeline {
 
         stage('Push Docker Image to Artifact Registry') {
             steps {
-                echo 'Pushing Docker image to Artifact Registry...'
+                echo '🚀 Pushing Docker image to Artifact Registry...'
                 sh '''
                     docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:latest
                 '''
@@ -52,17 +51,27 @@ pipeline {
 
         stage('Deploy to GKE') {
             steps {
-                echo 'Deploying to GKE cluster...'
+                echo '☸️ Deploying to GKE cluster...'
                 withCredentials([file(credentialsId: 'gcp-jenkins-s', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh '''
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-                        gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+                        gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION --project $PROJECT_ID
                         kubectl apply -f deployment.yaml
                         kubectl apply -f service.yaml
                         kubectl apply -f autoscaler.yaml
+                        echo "✅ Deployment completed successfully!"
                     '''
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo '🎉 Pipeline executed successfully! App deployed on GKE.'
+        }
+        failure {
+            echo '❌ Pipeline failed. Check the stage logs above for errors.'
         }
     }
 }
