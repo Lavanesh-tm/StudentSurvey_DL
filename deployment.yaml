@@ -1,10 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: studentsurvey
-  namespace: hw2
-  labels:
-    app: studentsurvey
+  name: studentsurvey-deployment
 spec:
   replicas: 3
   selector:
@@ -17,13 +14,6 @@ spec:
     spec:
       containers:
       - name: studentsurvey
-        image: us-central1-docker.pkg.dev/vigilant-list-476000-n7/student-survey-repo/studentsurvey:1.0
+        image: us-central1-docker.pkg.dev/vigilant-list-476000-n7/studentsurvey-repo/studentsurvey:latest
         ports:
         - containerPort: 80
-        resources:
-          requests:
-            cpu: "250m"
-            memory: "256Mi"
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
