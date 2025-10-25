@@ -1,0 +1,265 @@
+<!--
+Author: Lavanesh Mahendran
+Purpose: Homepage of my HW645 web application and my G number is:G01545858.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWE645 Homepage - Lavanesh Mahendran</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      overflow-x: hidden;
+   }
+
+   header {
+      background: #1f1c4b;
+      text-align: center;
+      padding: 15px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+   }
+
+    header h2 {
+      margin: 0;
+      font-weight: bold;
+      font-family: 'Segoe UI', sans-serif;
+      letter-spacing: 1px;
+   }
+
+     
+   .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      margin: 20px;
+      padding: 50px 20px;
+      animation: fadeIn 1.5s ease forwards;
+      box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+   }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+     to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 4px solid cyan;
+      object-fit: cover;
+      margin-bottom: 20px;
+      animation: bounceIn 1.5s ease;
+      box-shadow: 0 0 25px cyan;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .typewriter {
+      font-size: 1.3rem;
+      border-right: 3px solid cyan;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 0.7s infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+   .glass-card {
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 20px;
+      box-shadow: 0 0 20px cyan;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+   }
+
+   .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px cyan;
+    }
+
+    .glass-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .glass-card figcaption {
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      background: rgba(0, 255, 255, 0.3);
+      border-radius: 0 0 15px 15px;
+    }
+
+      
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s forwards;
+    }
+
+    .fade-delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .fade-delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-survey {
+      display: inline-block;
+      margin-top: 25px;
+      background: linear-gradient(45deg, #00f6ff, #007bff);
+      color: white;
+      font-weight: bold;
+      padding: 12px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 0 20px cyan;
+    }
+
+    .btn-survey:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px cyan;
+    }
+
+    footer {
+      background: #1f1c4b;
+      color: #aaa;
+      text-align: center;
+      padding: 12px;
+      margin-top: 40px;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+
+
+
+
+<body>
+<header>
+    <h2>🌌 SWE645 Homepage - Lavanesh Mahendran 🌌</h2>
+</header>
+
+  <section class="hero">
+    <img src="happy-student-boy-with-books-isolated-free-photo.jpg" alt="Profile Picture" class="profile-pic">
+    <h1>Hi, I’m Lavanesh</h1>
+    <p class="typewriter">Exploring Cloud ☁️ | AI 🤖 | Web Development 💻</p>
+    <a href="survey.html" class="btn-survey">📝 Take the Student Survey</a>
+  </section>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row g-4 text-center">
+        <!-- About Me -->
+        <div class="col-md-4 fade-in">
+          <figure class="glass-card">
+            <img src="happy-student-boy-with-books-isolated-free-photo.jpg" alt="Student Life">
+            <figcaption>About Me</figcaption>
+          </figure>
+          <p class="mt-2">Passionate student exploring new technologies, learning web development, AI, and cloud computing. Loves building practical projects.</p>
+        </div>
+
+        <!-- Projects -->
+        <div class="col-md-4 fade-in fade-delay-1">
+          <figure class="glass-card">
+            <img src="images.jpg" alt="Project Work">
+            <figcaption>Projects</figcaption>
+          </figure>
+          <ul class="list-unstyled mt-2 text-start">
+            <li>🔹 <strong>Blind Image Watermarking</strong>: Hide data in images securely.</li>
+            <li>🔹 <strong>Automatic Vehicle License Plate Recognition</strong>: Detect & read plates in real-time.</li>
+          </ul>
+          <p class="mt-2 fst-italic">Part of <strong>SWE645 Web App Development</strong> course projects.</p>
+        </div>
+
+        <!-- Skills -->
+        <div class="col-md-4 fade-in fade-delay-2">
+          <figure class="glass-card">
+            <img src="pro.png" alt="Programming Skills">
+            <figcaption>Skills</figcaption>
+          </figure>
+          <p class="mt-2">💻 Programming: C | C++ | Java | Python | HTML | CSS | JavaScript | PHP</p>
+          <p>🌍 Languages: English</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="py-5">
+    <div class="container text-center">
+      <h3>✨ Hobbies & Achievements ✨</h3>
+      <p>Cycling 🚴 | Swimming 🏊 | Soccer ⚽ | Yoga 🧘 | Music 🎸🎹</p>
+      <p>🏆 ICT Science Expo | 🏅 Sports Competitions | 🌟 Genius of the Week</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Lavanesh Mahendran | SWE645 Assignment 1</p>
+  </footer>
+
+</body>
+</html>
