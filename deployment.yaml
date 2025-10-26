@@ -13,14 +13,9 @@ spec:
         app: studentsurvey
     spec:
       containers:
-      - name: studentsurvey
-        image: us-central1-docker.pkg.dev/vigilant-list-476000-n7/studentsurvey-repo/studentsurvey:latest
-        ports:
-        - containerPort: 80
-        resources:
-          requests:
-            cpu: 100m
-            memory: 256Mi
-          limits:
-            cpu: 250m
-            memory: 512Mi
+        - name: studentsurvey
+          image: us-central1-docker.pkg.dev/vigilant-list-476000-n7/studentsurvey-repo/studentsurvey:latest
+          ports:
+            - containerPort: 80
+          # ✅ Force Kubernetes to always pull the newest image
+          imagePullPolicy: Always
