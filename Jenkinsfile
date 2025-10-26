@@ -7,6 +7,7 @@ pipeline {
         REPO_NAME = "studentsurvey-repo"
         IMAGE_NAME = "studentsurvey"
         CLUSTER_NAME = "my-cluster2"
+        IMAGE_TAG = "${BUILD_NUMBER}"   // ✅ unique tag for each build
     }
 
     stages {
@@ -21,7 +22,7 @@ pipeline {
             steps {
                 echo '🐳 Building Docker image...'
                 sh '''
-                    docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:latest .
+                    docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG .
                 '''
             }
         }
@@ -43,7 +44,7 @@ pipeline {
             steps {
                 echo '🚀 Pushing Docker image to Artifact Registry...'
                 sh '''
-                    docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:latest
+                    docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
                 '''
             }
         }
@@ -55,9 +56,17 @@ pipeline {
                     sh '''
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                         gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION --project $PROJECT_ID
-                        kubectl apply -f deployment.yaml
+                        
+                        # Apply Kubernetes configuration files
                         kubectl apply -f service.yaml
                         kubectl apply -f autoscaler.yaml
+                        
+                        # ✅ Update the deployment image with the new build tag
+                        kubectl set image deployment/studentsurvey-deployment studentsurvey=$REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --record
+                        
+                        # ✅ Wait for rollout to finish to ensure pods update properly
+                        kubectl rollout status deployment/studentsurvey-deployment
+                        
                         echo "✅ Deployment completed successfully!"
                     '''
                 }
