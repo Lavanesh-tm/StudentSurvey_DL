@@ -8,11 +8,11 @@ spec:
     kind: Deployment
     name: studentsurvey-deployment
   minReplicas: 3
-  maxReplicas: 5
+  maxReplicas: 6
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 60
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
