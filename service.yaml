@@ -10,5 +10,5 @@ spec:
     app: studentsurvey
   ports:
     - protocol: TCP
-      port: 80          # external port
-      targetPort: 80    # must match containerPort in deployment
+      port: 80
+      targetPort: 80
