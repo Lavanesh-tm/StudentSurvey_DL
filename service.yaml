@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: studentsurvey-service
-  labels:
-    app: studentsurvey
+  annotations:
+    cloud.google.com/backend-config: '{"default": "studentsurvey-backendconfig"}'
 spec:
   type: LoadBalancer
   selector:
     app: studentsurvey
   ports:
-  - port: 80
+  - protocol: TCP
+    port: 80
     targetPort: 8080
-    protocol: TCP
